@@ -1,2 +1,4 @@
-# bibliotech_backend
-API pour la gestion d'une bibliotheque
+# BiblioTech
+
+BiblioTech est une API pour la gestion d'une bibliothèque
+
