@@ -6,6 +6,6 @@ class MultipleSerializerMixin(viewsets.ViewSetMixin):
     detail_serializer_class = None
 
     def get_serializer_class(self):
-        if self.action == 'retrieve' or self.action == 'update' or self.action == 'partial_update':
+        if self.action != 'list' and self.detail_serializer_class:
             return self.detail_serializer_class
         return self.serializer_class

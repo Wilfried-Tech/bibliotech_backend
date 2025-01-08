@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from bibliotech.mixins import MultipleSerializerMixin
 from users.models import User
-from users.permissions import IsSelf
+from bibliotech.permissions import IsSelf
 from users.serializers import UserListSerializer, UserDetailSerializer, UserPasswordSerializer
 
 
@@ -40,7 +40,7 @@ class UserViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
         user.is_active = False
         user.save()
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAdminUser])
+    @action(detail=True, methods=['post', 'put'], permission_classes=[IsAdminUser])
     def ban(self, request, **kwargs):
         user = self.get_object()
         user.is_active = False
@@ -54,7 +54,7 @@ class UserViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
         user.save()
         return Response({'message': 'User unbanned'})
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAdminUser])
+    @action(detail=True, methods=['post', 'put'], permission_classes=[IsAdminUser])
     def promote(self, request, **kwargs):
         user = self.get_object()
         user.is_staff = True
@@ -68,7 +68,7 @@ class UserViewSet(MultipleSerializerMixin, viewsets.ModelViewSet):
         user.save()
         return Response({'message': 'User demoted'})
 
-    @action(detail=True, methods=['post'], permission_classes=[IsSelf])
+    @action(detail=True, methods=['post', 'put'], permission_classes=[IsSelf])
     def change_password(self, request, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)

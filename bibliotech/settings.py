@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'users',
+    'books'
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_URL = 'uploads/'
+MEDIA_ROOT = BASE_DIR / 'uploads'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -147,7 +151,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'PAGE_SIZE': 100,
 }
 
 if not DEBUG:
@@ -159,4 +163,5 @@ if not DEBUG:
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework_simplejwt.authentication.JWTAuthentication',
         ],
+
     }
