@@ -42,7 +42,6 @@ class Author(models.Model):
         if self.birth_date and self.death_date and self.birth_date > self.death_date:
             raise ValidationError('The death date must be after the birth date.')
 
-
     @property
     def full_name(self):
         return f'{self.first_name}' + (f' {self.last_name}' if self.last_name else '')
@@ -61,6 +60,7 @@ class Book(models.Model):
     title = models.CharField('Titre', max_length=100)
     description = models.TextField('Description', null=True, blank=True)
     author = models.ForeignKey(Author, related_name='books', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField('Quantité', default=1, validators=[MinValueValidator(0)])
     nb_page = models.IntegerField('Nombre de pages', validators=[MinValueValidator(1)])
     category = models.ForeignKey(Category, null=True, blank=True, related_name='books', on_delete=models.SET_NULL)
     publication_date = models.DateField('Date de publication', null=True, blank=True)
@@ -68,3 +68,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title.title()
+
+    @property
+    def is_available(self):
+        return self.quantity > 0

@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'users',
-    'books'
+    'books',
+    'borrowings'
 ]
 
 MIDDLEWARE = [
@@ -153,6 +154,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
 }
+
+# user custom settings
+
+MAX_BORROWINGS = 5
 
 if not DEBUG:
     REST_FRAMEWORK = {

@@ -34,16 +34,16 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'author', 'category']
+    list_display = ['id', 'title', 'quantity', 'author', 'category']
     search_fields = ['title', 'author__first_name', 'category__name']
     list_filter = ['category', 'author', 'publication_date']
     fieldsets = (
         (None, {
-            'fields': ('title', 'author', 'category')
+            'fields': ('title', 'author', 'category', 'quantity')
         }),
         ('Informations Supplémentaires', {
             'fields': ('cover', 'isbn', 'nb_page', 'publication_date', 'description')
         })
     )
     date_hierarchy = 'publication_date'
-    ordering = ['title']
+    ordering = ['title', 'quantity']
